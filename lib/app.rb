@@ -3,6 +3,8 @@ require_relative 'controller'  # You need to create this file!
 require_relative 'router'
 
 csv_file   = File.join(__dir__, 'recipes.csv')
+# similar to csv_file = "./recipes.csv"
+
 cookbook   = Cookbook.new(csv_file)
 controller = Controller.new(cookbook)
 

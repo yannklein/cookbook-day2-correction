@@ -2,35 +2,43 @@ require_relative 'view'
 require_relative 'recipe'
 
 class Controller
-  def initialize(cookbook) # expected to be an instance of Cookbook
+  def initialize(cookbook)
     @cookbook = cookbook
     @view = View.new
   end
 
-  def list # TODO: display all the recipes in the cookbook
-    # 1. get the recipes from cookbook (cookbook)
+  # ACTIONS
+
+  # 1 - List all recipes
+  def list
+    # ask the cookbook all the recipes
     recipes = @cookbook.all
-    # 2. display them in terminal (view)
-    @view.display(recipes)
+    # ask the view to display the recipes
+    @view.display_recipes(recipes)
   end
 
+  # 2 - Create a new recipe
   def create
-    # 1. ask for the name
-    name = @view.ask_for('name')
-    # 2. ask for description
-    description = @view.ask_for('description')
-    # 3. instanciate recipe using the infomation above
+    # ask the view to ask the user for a recipe name
+    name = @view.ask_for :name
+    # ask the view to ask the user for a recipe description
+    description = @view.ask_for :description
+    # create a Recipe instance
     recipe = Recipe.new(name, description)
-    # 4. save the new recipe to the cookbook
+    # ask the cookbook to store the recipe
     @cookbook.add_recipe(recipe)
-  end
-
-  def destroy
-    # 1. display the recipes
+    # list the recipes
     list
-    # 2. ask for index
-    index = @view.ask_for('number').to_i - 1
-    # 3. remove the chosen recipe from the cookbook
+  end
+  # 3 - Destroy a recipe
+  def destroy
+    # list the recipes
+    list
+    # ask the view to ask user for an index
+    index = @view.ask_for(:index).to_i - 1
+    # ask the cookbook to remove the recipe of this index
     @cookbook.remove_recipe(index)
+    # list the recipes
+    list
   end
 end
