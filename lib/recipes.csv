@@ -1,2 +1,7 @@
-takoyaki,tako and flour
-pancake,pan and cake
+name,description,rating,done
+takoyaki,tako and flour,4.0,false
+pancake,pan and cake,2.0,true
+Old Fashioned Onion Rings,"Onion rings are a popular appetizer at many restaurants, and with this recipe, you can satisfy your craving at home. This is an actual recipe from a former employee of a popular drive-in restaurant. Sweet and tender on the inside, crispy and crunchy on the outside — just like the pros make!",5.0,false
+banana split,banana and split,3.4,false
+fondant au choco,fondant and choco,2.3,false
+Awesome Broccoli-Cheese Casserole,"My mom made this broccoli cheese casserole every Thanksgiving when I was little. We kids could never get enough! If you have children or have some coming to visit you as guests this Thanksgiving, I guarantee that they will eat (and enjoy) this veggie dish. It's also fabulous with a Christmas ham.",4.5,false

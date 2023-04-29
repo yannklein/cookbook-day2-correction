@@ -1,9 +1,10 @@
 require_relative 'view'
+require_relative 'scrape_allrecipes_service'
 
 class Controller
   def initialize(cookbook)
     @cookbook = cookbook
-    @view = View.new
+    @view = View.new 
   end
 
   def list
@@ -20,8 +21,11 @@ class Controller
     # ask the user for a description
     # store description in variable
     description = @view.ask_for :description 
+    # ask the user for a rating
+    # store rating in variable
+    rating = @view.ask_for(:rating).to_f
     # create an instance of Recipe 
-    recipe = Recipe.new(name, description)
+    recipe = Recipe.new(name: name, description: description, rating: rating)
     # give this instance to the cookbook for it to save our recipe
     @cookbook.create(recipe)
   end
@@ -36,4 +40,29 @@ class Controller
     @cookbook.destroy(index)
   end
 
+  def import
+    # 1. Ask user which ingredient to scrape
+    # 2. Get and store the user choice
+    ingredient = @view.ask_for(:ingredient)
+    # 3. Scrape 5 recipes from the web
+    recipes = ScrapeAllrecipes.new(ingredient).call
+    # 4. Display recipes
+    @view.display_recipes(recipes)
+    # 5. Ask the user for an index (of the recieip she/he wants to add)
+    # 6. Get user chosen index, convert it to integer and substract 1
+    index = @view.ask_for(:index).to_i - 1
+    # 7. Get recipe corresponding to the index in our list of 5 recipes
+    recipe = recipes[index]
+    # 8. Ask the cookbook to save it (@cookbook.create)
+    @cookbook.create(recipe)
+  end
+
+  def mark_as_done
+    # list the recipes
+    list
+    # Ask the user for a index
+    index = @view.ask_for(:index).to_i - 1
+    # Ask the cookbook to mark as done
+    @cookbook.mark_as_done(index)
+  end
 end
