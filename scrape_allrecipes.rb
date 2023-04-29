@@ -15,7 +15,10 @@ def scrape_allrecipes(keyword)
   # initialize an empty array
   recipes = []
   # get the first 5 recipe cards, for each of them
-  doc.search(".mntl-card-list-items").first(5).each do |recipe_card|
+  doc.search(".mntl-card-list-items")
+    .select { |recipe_card| recipe_card.search('.mntl-recipe-star-rating').any? }
+    .first(5)
+    .each do |recipe_card|
     # retrieve the recipe URL
     recipe_url = recipe_card.attributes["href"].value
     # scrape the recipe webpage
@@ -37,4 +40,6 @@ def scrape_allrecipes(keyword)
   recipes
 end
 
-p scrape_allrecipes("strawberry")
+recipes = scrape_allrecipes("cake")
+p recipes
+p recipes.count
