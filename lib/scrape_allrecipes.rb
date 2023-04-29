@@ -1,6 +1,6 @@
 require "nokogiri"
 require "open-uri"
-require_relative "lib/recipe.rb"
+require_relative "recipe.rb"
 
 # Create a method to scrape the following for 5 recipes info:
 # 1. name
